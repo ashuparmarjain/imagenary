@@ -1,0 +1,24 @@
+.app-header h1{
+	text-transform: uppercase;
+}
+
+.upload {
+	margin-top: 40px;
+}
+.upload form{
+	padding: 40px;
+	background-color: #eee;
+}
+
+.upload form input[type="submit"]{
+	float: right;
+    background: #d23f31;
+    color: #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
+    border: none;
+    border-radius: 0px;
+    padding: 10px 40px;	
+	text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;    
+}

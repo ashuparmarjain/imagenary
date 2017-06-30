@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>
+		Imagenary
+	</title>
+  	<meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+  	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Raleway:600" rel="stylesheet">
+ 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 	<link rel="stylesheet" type="text/css" href="assets/style/style.css">	
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 app-header">
+				<h1 class="text-center">Image - nary</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12 upload">
+				<form enctype ="multipart/form-data" action="/api/photo" method="post">
+					<div class="form-group">
+						<input type="file" name="image" accept="image/*">
+						<input type="submit" class="btn btn-default" value="Upload">						
+					</div>
+				</form>
+			</div>
+		</div>	
+	</div>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+  	<!-- <script type="text/javascript" src="assets/script/script.js"></script> -->
+</body>
+</html>
