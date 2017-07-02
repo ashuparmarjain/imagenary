@@ -1,51 +1,33 @@
 // https://imagenary.herokuapp.com
-/**
- * Convert a base64 string in a Blob according to the data and contentType.
- * 
- * @param b64Data {String} Pure base64 string without contentType
- * @param contentType {String} the content type of the file i.e (image/jpeg - image/png - text/plain)
- * @param sliceSize {Int} SliceSize to process the byteCharacters
- * @see http://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
- * @return Blob
- */
-function b64toBlob(b64Data, contentType, sliceSize) {
-        contentType = contentType || '';
-        sliceSize = sliceSize || 512;
 
-        var byteCharacters = atob(b64Data);
-        var byteArrays = [];
+ // convert base64/URLEncoded data component to raw binary data held in a string
+ function dataURItoBlob(dataURI) {
+ 
+  var byteString;
 
-        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-            var slice = byteCharacters.slice(offset, offset + sliceSize);
+  if (dataURI.split(',')[0].indexOf('base64') >= 0)
+    byteString = atob(dataURI.split(',')[1]);
+  else
+    byteString = unescape(dataURI.split(',')[1]);
 
-            var byteNumbers = new Array(slice.length);
-            for (var i = 0; i < slice.length; i++) {
-                byteNumbers[i] = slice.charCodeAt(i);
-            }
+  // separate out the mime component
+  var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
 
-            var byteArray = new Uint8Array(byteNumbers);
+  // write the bytes of the string to a typed array
+  var ia = new Uint8Array(byteString.length);
 
-            byteArrays.push(byteArray);
-        }
+  for (var i = 0; i < byteString.length; i++) {
+    ia[i] = byteString.charCodeAt(i);
+  }
 
-      var blob = new Blob(byteArrays, {type: contentType});
-      return blob;
+  return new Blob([ia], {
+    type: mimeString
+  });
 }
 
-function converFileToImage(ImageURL){
-  var _URL = window.URL || window.webkitURL;
-	var block = ImageURL.split(";");
-	// Get the content type of the image
-	var contentType = block[0].split(":")[1];// In this case "image/gif"
-	// get the real base64 content of the file
-	var realData = block[1].split(",")[1];
-	var blob = b64toBlob(realData, contentType);
-  var blobUrl = _URL.createObjectURL(blob);
-	return blobUrl;
- }
 
 
-// //Preview Image  only if it meeets the recommended size.
+ //Preview Image  only if it meeets the recommended size.
 
 
 function previewImage(object) {
@@ -87,9 +69,9 @@ function previewImage(object) {
 
 
       function savePreview(thumbnailID,dataURL){
-         var blobObject = converFileToImage(dataURL);
+         // var blobObject = converFileToImage(dataURL);
           $(thumbnailID).attr('src',dataURL);   
-          console.log(blobObject);      
+          // console.log(blobObject);      
       }
 
   };   
@@ -139,29 +121,31 @@ $("#imageChoosen").change(function (e) {
  // ajax call to save image to backend
  $("#post-btn").click(function(e){
  	e.preventDefault(); 
- 	var form = $('#image')[0];
  	var data = new FormData();
-  var test = $('#thumbnail1').attr('src');
+ 
 
- 	data.append('thumbnail_755x450',test);
- 	data.append('thumbnail_365x450',$('#thumbnail2').attr('src'));
- 	data.append('thumbnail_365x212',$('#thumbnail3').attr('src'));
- 	data.append('thumbnail_380x380',$('#thumbnail4').attr('src'));
+
+ 	data.append('thumbnail_755x450',dataURItoBlob($('#thumbnail1').attr('src')),'thumbnail_755x450.jpg');
+ 	data.append('thumbnail_365x450',dataURItoBlob($('#thumbnail2').attr('src')),'thumbnail_365x450.jpg');
+ 	data.append('thumbnail_365x212',dataURItoBlob($('#thumbnail3').attr('src')),'thumbnail_365x212.jpg');
+ 	data.append('thumbnail_380x380',dataURItoBlob($('#thumbnail4').attr('src')),'thumbnail_380x380.jpg');
  	
-    // var url = '/api/photo';
-    // $.ajax({
-    // 	type:"POST",
-    // 	url: url,
-    // 	data:data,
-    // 	processData: false,
-    // 	contentType: false,
-    // }).done(function(res){
-    // 	console.log(res);
-    // });
+  // var xhr = new XMLHttpRequest();
+// xhr.open('POST', '/api/photo');
+// xhr.send(data);
+    var url = '/api/photo';
 
-    var xhr = new XMLHttpRequest();
-	xhr.open('POST', '/api/photo', true); //my url had the ID of the item that the blob corresponded to
-	xhr.responseType = 'Blob';
-	xhr.send(data);
+    $.ajax({
+    	type:"POST",
+    	url: url,
+    	data:data,
+    	processData: false,
+    	contentType: false,
+    }).done(function(res){
+    	console.log(res);
+    });
+
+
+
 
 });

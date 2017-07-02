@@ -28,14 +28,22 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).any();
 
 	app.post('/api/photo',function(req,res){
-		console.log(req);
+		// console.log(req);
 	    upload(req,res,function(err) {
 	        if(err) {
 	            return res.end("Error uploading file." + err);
 	        }
 	        res.end("File is uploaded");
 	    });
+
 	});
+
+	//  var base64Data = req.body.replace(/^data:image\/jpeg;base64,/, "");
+
+	// 	fs.writeFile("out.jpeg", base64Data, 'base64', function(err) {
+	// 	  console.log(err);
+	// 	});
+	// });
 // //config
 
 // var upload = multer(); // for parsing multipart/form-data
@@ -51,7 +59,7 @@ var upload = multer({ storage: storage }).any();
 //             res.send(data);
 //         });
 //     });
-// });
+// });	
 
 var db = require('./config/db');
 
