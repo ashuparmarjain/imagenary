@@ -8,8 +8,13 @@
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Raleway:600" rel="stylesheet">
  	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/css/Jcrop.min.css" type="text/css">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
- 	<link rel="stylesheet" type="text/css" href="assets/style/style.css">	
+ 	<link rel="stylesheet" type="text/css" href="assets/style/style.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>			
 </head>
 <body>
 	<div class="container">
@@ -21,20 +26,45 @@
 
 		<div class="row">
 			<div class="col-md-12 upload">
-				<form enctype ="multipart/form-data" action="/api/photo" method="post">
+				<form enctype ="multipart/form-data" id="image">
 					<div class="form-group">
-						<input type="file" name="image" accept="image/*">
-						<input type="submit" class="btn btn-default" value="Upload">						
+						<input type="file" name="image" value="1.png" accept="image/*" id="imageChoosen">
+						<button class="btn btn-default" id="post-btn">Upload</button>					
 					</div>
-				</form>
+				</form>	
+				<div id="imagePreview"></div>
+  
 			</div>
+      <div class="col-md-12">
+        <h1> horizontal : 755 x 450</h1>
+        <button id="btn1"> Set Thumbnail</button>
+        <canvas id="preview1"></canvas>
+        <img id="thumbnail1">
+      </div>
+      <div class="col-md-12">
+        <h1> vertical : 365 x 450</h1>
+        <button id="btn2"> Set Thumbnail</button>
+        <canvas id="preview2"></canvas>
+        <img id="thumbnail2">
+      </div>
+       <div class="col-md-12">
+        <h1> horizontal small : 365 x 212</h1>
+        <button id="btn3"> Set Thumbnail</button>
+        <canvas id="preview3"></canvas>
+        <img id="thumbnail3">
+      </div>
+      <div class="col-md-12">
+        <h1> gallery : 380 x 380</h1>
+        <button id="btn4"> Set Thumbnail</button>
+        <canvas id="preview4"></canvas>
+        <img id="thumbnail4">
+      </div>           
 		</div>	
+
 	</div>
 
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
-  	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
-  	<!-- <script type="text/javascript" src="assets/script/script.js"></script> -->
+ 	
+  	<script type="text/javascript" src="assets/script/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Imagenary
+  </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropper/2.3.4/cropper.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>     
+
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+        <img src="C:/Users/ashup/Desktop/01-Business-Process_1024x1024.jpg" id="image" class="img img-responsive" />
+      
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+   $('#image').cropper({
+  aspectRatio: 16 / 9,
+  scalable:false,
+  zoomable:false,
+  cropBoxResizable:false,
+
+  crop: function(e) {
+    // Output the result data for cropping image.
+    console.log(e.x);
+    console.log(e.y);
+    console.log(e.width);
+    console.log(e.height);
+    console.log(e.rotate);
+    console.log(e.scaleX);
+    console.log(e.scaleY);
+  }
+});
+
+
+
+  });   
+ 
+</script>
+</body>
+</html>

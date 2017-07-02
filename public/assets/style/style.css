@@ -10,7 +10,7 @@
 	background-color: #eee;
 }
 
-.upload form input[type="submit"]{
+#post-btn{
 	float: right;
     background: #d23f31;
     color: #fff;
@@ -21,4 +21,7 @@
 	text-transform: uppercase;
     letter-spacing: 1px;
     font-weight: 700;    
+}
+#thumbnail1,#thumbnail2,#thumbnail3,#thumbnail4{
+    display: none;
 }

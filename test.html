@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Imagenary
+  </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/css/Jcrop.min.css" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-jcrop/2.0.4/js/Jcrop.min.js"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>     
+
+<style>
+
+  .thumbnail_block{
+    display: none;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4">
+      <img src="assets/images/01-Business-Process_1024x1024.jpg" id="target" class="img img-responsive" /> 
+      <canvas id="preview1"></canvas>
+      <canvas id="preview2"></canvas>
+      <canvas id="preview3"></canvas>
+      <canvas id="preview4"></canvas>
+    </div>
+
+    <div class="col-md-4 thumbnail_block ">
+          <img id="thumbnail1">
+          <img id="thumbnail2">
+          <img id="thumbnail3">
+          <img id="thumbnail4">
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    $('#target').Jcrop({
+      aspectRatio:16 / 9,
+      allowSelect: true,
+      canResize : false,      
+      onChange : updatePreview,
+      bgColor: 'red'  
+    });
+    
+    
+    function updatePreview(c) {
+        if(parseInt(c.w) > 0) {        
+            previewCanvas(c,755,450,'#preview1','#thumbnail1','#target');
+            previewCanvas(c,365,450,'#preview2','#thumbnail2','#target');
+            previewCanvas(c,365,212,'#preview3','#thumbnail3','#target');
+            previewCanvas(c,380,380,'#preview4','#thumbnail4','#target');
+        }
+    };
+
+      function previewCanvas(c,w,h,canvasID,thumbnailID,imageObj){
+              var imageObj = $(imageObj)[0];
+              var canvas = $(canvasID)[0]; 
+              var context = canvas.getContext("2d");
+              canvas.width = w;
+              canvas.height = h;
+              context.drawImage(imageObj, c.x, c.y, c.w, c.h, 0, 0, canvas.width, canvas.height);
+              dataURL =  canvas.toDataURL("image/jpeg");
+              console.log(canvas.width,canvas.height);
+              savePreview(thumbnailID,dataURL);
+      }
+
+      function savePreview(thumbnailID,dataURL){
+          $(thumbnailID).attr('src',dataURL);
+      }
+
+  });   
+ 
+</script>
+</body>
+</html>
