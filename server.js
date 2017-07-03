@@ -38,9 +38,10 @@ var storage = multer.memoryStorage();
 
 var upload = multer({ storage: storage });
 
-
 	app.post('/api/photo', upload.any(),function(req,res){  
-	   
+	   	if(req.files.length < 4){
+	   		res.end('Invalid File');
+	   	} else{
 	    req.files.forEach(function(arrayItem) {
 
 			datauri.format(path.extname('TEST').toString(), arrayItem.buffer);	
@@ -57,7 +58,7 @@ var upload = multer({ storage: storage });
 			});
 		});
 	    res.end("done");
-
+	}
 	});
 
 	app.get("/api/thumbnails", function(req, res) {
