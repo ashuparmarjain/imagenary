@@ -79,7 +79,7 @@ function previewImage(object) {
 
 
 
-
+  $('.setThumbnail  p').hide();
 
  $('#btn1').click(function(){
 	createThumbnail(755,450,'#preview1','#thumbnail1','#target');
@@ -121,7 +121,7 @@ $("#imageChoosen").change(function (e) {
             	$('#thumbnail_preview').empty();
             	
             	alert('Please select an image of size 1024*1024 to procede');
-            	$('#imagePreview').append("<p>Please select an image of size 1024*1024 to procede</p>");
+            	$('#imagePreview').append("<p><span>Please select an image of size 1024*1024 to procede</span></p>");
             }
         };        
     }    
@@ -146,7 +146,7 @@ $("#imageChoosen").change(function (e) {
     	processData: false,
     	contentType: false,
     }).done(function(res){
-    	 alert('Thumbnail created and saved');
+    	 $('#uploaded_Modal').modal('show');
     });
 
 

@@ -6,8 +6,6 @@
 	</title>
   	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
-  	<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500|Raleway:600" rel="stylesheet">
- 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
  	  <link rel="stylesheet" type="text/css" href="assets/style/style.css">
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -40,18 +38,19 @@
 
  	
   	<script type="text/javascript">
+        $(document).ready(function(){
+        var ajaxurl = "/api/thumbnails"; 
+          jQuery.get( ajaxurl, function( data ) {
 
-
-     var ajaxurl = "/api/thumbnails"; 
-            jQuery.get( ajaxurl, function( data ) {
-                  for(var i = 0; i < data.length; i++) {
-                      var obj = data[i];
-                      var template = "<li><a><img class='img img-responsive' src=" + obj.thumbnail + "></a></li>";
-                      jQuery("#thumbnail_gallery").append(template);                      
-                  }
-              }).fail(function() {
-                   alert('Please try again later');                    
-                });
+                for(var i = 0; i < data.length; i++) {
+                    var obj = data[i];
+                    var template = "<li><a><img class='img img-responsive' src=" + obj.thumbnail + "></a></li>";
+                    jQuery("#thumbnail_gallery").append(template);                      
+                }
+            }).fail(function() {
+                 alert('Please try again later');                    
+              });
+        });
     </script>
 
 
