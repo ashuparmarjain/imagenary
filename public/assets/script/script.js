@@ -83,16 +83,24 @@ function previewImage(object) {
 
  $('#btn1').click(function(){
 	createThumbnail(755,450,'#preview1','#thumbnail1','#target');
+  $('.setThumbnail  p').hide();
+  $(this).next().show();  
 });
 
 $('#btn2').click(function(){
 	createThumbnail(365,450,'#preview2','#thumbnail2','#target');
+    $('.setThumbnail  p').hide();
+  $(this).next().show();  
 });
 $('#btn3').click(function(){
 	createThumbnail(365,212,'#preview3','#thumbnail3','#target');
+    $('.setThumbnail  p').hide();
+  $(this).next().show();  
 });
 $('#btn4').click(function(){
 	createThumbnail(380,380,'#preview4','#thumbnail4','#target');
+    $('.setThumbnail  p').hide();
+  $(this).next().show();  
 });
 
 var _URL = window.URL || window.webkitURL;
@@ -106,11 +114,12 @@ $("#imageChoosen").change(function (e) {
         img.onload = function () {
             if((this.width&&this.height)==1024){
             	previewImage(this);
-            	$('#uploadImage').show();
+            	$('#imageChoosen').hide();
+              $('.thumbnailBlock').show();
             }else{
             	$('#imagePreview').empty();
             	$('#thumbnail_preview').empty();
-            	$('#uploadImage').hide();
+            	
             	alert('Please select an image of size 1024*1024 to procede');
             	$('#imagePreview').append("<p>Please select an image of size 1024*1024 to procede</p>");
             }
@@ -122,19 +131,14 @@ $("#imageChoosen").change(function (e) {
  $("#post-btn").click(function(e){
  	e.preventDefault(); 
  	var data = new FormData();
- 
-
 
  	data.append('thumbnail_755x450',dataURItoBlob($('#thumbnail1').attr('src')),'thumbnail_755x450.jpg');
  	data.append('thumbnail_365x450',dataURItoBlob($('#thumbnail2').attr('src')),'thumbnail_365x450.jpg');
  	data.append('thumbnail_365x212',dataURItoBlob($('#thumbnail3').attr('src')),'thumbnail_365x212.jpg');
  	data.append('thumbnail_380x380',dataURItoBlob($('#thumbnail4').attr('src')),'thumbnail_380x380.jpg');
  	
-  // var xhr = new XMLHttpRequest();
-// xhr.open('POST', '/api/photo');
-// xhr.send(data);
-    var url = '/api/photo';
 
+    var url = '/api/photo';
     $.ajax({
     	type:"POST",
     	url: url,
@@ -142,7 +146,7 @@ $("#imageChoosen").change(function (e) {
     	processData: false,
     	contentType: false,
     }).done(function(res){
-    	console.log(res);
+    	 alert('Thumbnail created and saved');
     });
 
 

@@ -1,27 +1,76 @@
-.app-header h1{
-	text-transform: uppercase;
+#thumbnail1,#thumbnail2,#thumbnail3,#thumbnail4{
+    display: none;
 }
-
-.upload {
-	margin-top: 40px;
+.upload_block{
+    margin-bottom: 40px;
+    text-align: center;
 }
-.upload form{
-	padding: 40px;
-	background-color: #eee;
-}
-
 #post-btn{
-	float: right;
     background: #d23f31;
     color: #fff;
     box-shadow: 0 0 4px rgba(0,0,0,.14), 0 4px 8px rgba(0,0,0,.28);
     border: none;
     border-radius: 0px;
-    padding: 10px 40px;	
-	text-transform: uppercase;
+    padding: 20px 100px;    
+    text-transform: uppercase;
     letter-spacing: 1px;
-    font-weight: 700;    
+    font-weight: 700; 
+    font-size: 24px;   
 }
-#thumbnail1,#thumbnail2,#thumbnail3,#thumbnail4{
+.main-header{
+    background:#f6f6f6;
+}
+nav ul{
+    margin-bottom: 0px;
+}
+nav ul li a{
+    display: block;
+    padding: 10px 20px;
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #333;
+    text-decoration: none;
+}
+nav ul li a:hover{
+    text-decoration: none;
+    color: #d23f31;
+}
+a.active{
+    color: #d23f31;
+}
+.main-header>h1{
+    margin: 0;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+.thumbnailBlock{
     display: none;
+}
+
+.upload {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+.upload input{
+    margin: 0 auto;
+}
+#imagePreview{
+    margin:40px auto; 
+    text-align: center;
+}
+.setThumbnail {
+    background : #eee;
+    margin: 20px 0;
+    padding: 20px;
+    text-align: center;
+} 
+.setThumbnail button {
+    margin: 40px auto;
+    display: block;
+
+}
+
+.setThumbnail h3{
+    text-transform: capitalize;
 }

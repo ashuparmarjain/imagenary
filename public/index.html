@@ -17,60 +17,72 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>			
 </head>
 <body>
+
 <div class="container">
   <div class="row">
-    <div class="col-md-12">
-        <a href="thumbnails.html"> Thumbnail</a>
-    </div>
+    <div class="col-md-12 main-header">
+      <nav>
+        <ul class="list-inline">
+          <li><a href="/" class="active"> Home</a></li>        
+          <li><a href="thumbnails.html"> Thumbnail</a></li>
+        </ul>
+      </nav>
+        <h1 class="text-center">Image - nary</h1>
+      </div>    
   </div>
 </div>
+
 	<div class="container">
 		<div class="row">
-			<div class="col-md-12 app-header">
-				<h1 class="text-center">Image - nary</h1>
-			</div>
-		</div>
-
-		<div class="row">
 			<div class="col-md-12 upload">
-				<form enctype ="multipart/form-data" id="image">
-					<div class="form-group">
-						<input type="file" name="image" value="1.png" accept="image/*" id="imageChoosen">
-						<button class="btn btn-default" id="post-btn">Upload</button>					
-					</div>
-				</form>	
-				<div id="imagePreview"></div>
-  
-			</div>
-      <div class="col-md-12">
-        <h1> horizontal : 755 x 450</h1>
+				<input type="file" name="image"  accept="image/*" id="imageChoosen">	
+        <div class="text-center"><p><small>Note : Upload Image size with 1024 x 1024</small></p></div>		
+				<div id="imagePreview"></div>  
+			</div>           
+		</div>	
+	</div>
+
+  <div class="container thumbnailBlock">
+    <div class="row">
+
+      <div class="col-md-12 setThumbnail">
+        <h3> horizontal : 755 x 450</h3>
         <button id="btn1"> Set Thumbnail</button>
+        <p><span>Click on the Image to set the thumbnail</span></p>
         <canvas id="preview1"></canvas>
         <img id="thumbnail1">
       </div>
-      <div class="col-md-12">
-        <h1> vertical : 365 x 450</h1>
+
+      <div class="col-md-12 setThumbnail">
+        <h3> vertical : 365 x 450</h3>
         <button id="btn2"> Set Thumbnail</button>
+        <p><span>Click on the Image to set the thumbnail</span></p>
         <canvas id="preview2"></canvas>
         <img id="thumbnail2">
       </div>
-       <div class="col-md-12">
-        <h1> horizontal small : 365 x 212</h1>
+
+       <div class="col-md-12 setThumbnail">
+        <h3> horizontal small : 365 x 212</h3>
         <button id="btn3"> Set Thumbnail</button>
+        <p><span>Click on the Image to set the thumbnail</span></p>
         <canvas id="preview3"></canvas>
         <img id="thumbnail3">
       </div>
-      <div class="col-md-12">
-        <h1> gallery : 380 x 380</h1>
+
+      <div class="col-md-12 setThumbnail">
+        <h3> gallery : 380 x 380</h3>
         <button id="btn4"> Set Thumbnail</button>
+        <p><span>Click on the Image to set the thumbnail</span></p>
         <canvas id="preview4"></canvas>
         <img id="thumbnail4">
-      </div>           
-		</div>	
+      </div>
 
-	</div>
+      <div class="col-md-12 upload_block">
+        <button class="btn btn-default" id="post-btn">Upload</button>
+      </div>
 
-
+    </div>
+  </div>
  	
   	<script type="text/javascript" src="assets/script/script.js"></script>
 </body>
