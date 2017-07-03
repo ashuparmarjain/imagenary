@@ -6,6 +6,11 @@ var path = require('path');
 var multer = require('multer');
 var cloudinary = require('cloudinary');
 var fs = require('fs');
+const Datauri = require('datauri');
+const datauri = new Datauri();
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://ashu:test123@ds145892.mlab.com:45892/imagenary');
 
 cloudinary.config({ 
   cloud_name: 'ashuparmarjain', 
@@ -13,53 +18,59 @@ cloudinary.config({
   api_secret: '2iQCqrqHN4M_As0af8qAK2GDkwg' 
 });
 
-
-
-// // multer storage
-var storage = multer.diskStorage({
-	destination : function (req,res,callback) {
-		callback(null,'./uploads');
-	},
-	filename : function(req,file,callback){
-		callback(null, 'imagenary' + '-' + Date.now());
-	}
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  // we're connected!
+  console.log('we are connected');
 });
 
-var upload = multer({ storage: storage }).any();
 
-	app.post('/api/photo',function(req,res){
-		// console.log(req);
-	    upload(req,res,function(err) {
-	        if(err) {
-	            return res.end("Error uploading file." + err);
-	        }
-	        res.end("File is uploaded");
-	    });
+  var thumbnailSchema = mongoose.Schema({
+    //Also creating index on field isbn
+    thumbnail: {type: String},
+    date: { type: Date, default: Date.now },
+  });
+
+var thumbnail = mongoose.model('thumbnail', thumbnailSchema);
+
+var storage = multer.memoryStorage();
+
+var upload = multer({ storage: storage });
+
+
+	app.post('/api/photo', upload.any(),function(req,res){  
+	   
+	    req.files.forEach(function(arrayItem) {
+
+			datauri.format(path.extname('TEST').toString(), arrayItem.buffer);	
+
+	        cloudinary.uploader.upload(datauri.content, function(result) { 
+			  
+			  		var t_image = new thumbnail({thumbnail: result.url });
+				t_image.save(function(err){
+					if(err){
+						console.log(err);
+					}
+				});
+
+			});
+		});
+	    res.end("done");
 
 	});
 
-	//  var base64Data = req.body.replace(/^data:image\/jpeg;base64,/, "");
+	app.get("/api/thumbnails", function(req, res) {
+		 thumbnail.find(function(err, docs) {
+		    if (err) {
+		      res.send(err);
+		    } else {
+		      res.json(docs);
+		    }
+		  });	
+	});
 
-	// 	fs.writeFile("out.jpeg", base64Data, 'base64', function(err) {
-	// 	  console.log(err);
-	// 	});
-	// });
-// //config
 
-// var upload = multer(); // for parsing multipart/form-data
-
-// app.post('/api/photo', upload.array(), function(req, res) {
-//     var base64Data = req.body.testdot;
-//     console.log('writing file...', base64Data);
-//     fs.writeFile(__dirname + "/uploads/out.png", base64Data, 'base64', function(err) {
-//         if (err) console.log(err);
-//         fs.readFile(__dirname + "/uploads/out.png", function(err, data) {
-//             if (err) throw err;
-//             console.log('reading file...', data.toString('base64'));
-//             res.send(data);
-//         });
-//     });
-// });	
 
 var db = require('./config/db');
 
