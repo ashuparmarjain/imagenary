@@ -9,14 +9,12 @@ var fs = require('fs');
 const Datauri = require('datauri');
 const datauri = new Datauri();
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://ashu:test123@ds145892.mlab.com:45892/imagenary');
+var db = require('./config/db');
 
-cloudinary.config({ 
-  cloud_name: 'ashuparmarjain', 
-  api_key: '454329337957173', 
-  api_secret: '2iQCqrqHN4M_As0af8qAK2GDkwg' 
-});
+var mongoose = require('mongoose');
+mongoose.connect(db.url);
+
+
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
@@ -26,13 +24,10 @@ db.once('open', function() {
 });
 
 
-  var thumbnailSchema = mongoose.Schema({
-    //Also creating index on field isbn
-    thumbnail: {type: String},
-    date: { type: Date, default: Date.now },
-  });
+// route
+require('./config/cloudinary')(cloudinary);
 
-var thumbnail = mongoose.model('thumbnail', thumbnailSchema);
+var Thumbnail = require('./models/thumbnail');
 
 var storage = multer.memoryStorage();
 
@@ -44,12 +39,12 @@ var upload = multer({ storage: storage });
 	   	} else{
 	    req.files.forEach(function(arrayItem) {
 
-			datauri.format(path.extname('TEST').toString(), arrayItem.buffer);	
+			datauri.format(path.extname('imagenary').toString(), arrayItem.buffer);	
 
 	        cloudinary.uploader.upload(datauri.content, function(result) { 
 			  
-			  		var t_image = new thumbnail({thumbnail: result.url });
-				t_image.save(function(err){
+			  		var t_image = new Thumbnail({thumbnail: result.url });
+					t_image.save(function(err){
 					if(err){
 						console.log(err);
 					}
@@ -62,7 +57,7 @@ var upload = multer({ storage: storage });
 	});
 
 	app.get("/api/thumbnails", function(req, res) {
-		 thumbnail.find(function(err, docs) {
+		 Thumbnail.find(function(err, docs) {
 		    if (err) {
 		      res.send(err);
 		    } else {
@@ -73,7 +68,7 @@ var upload = multer({ storage: storage });
 
 
 
-var db = require('./config/db');
+
 
 //port
 var port = process.env.PORT || 8080;
