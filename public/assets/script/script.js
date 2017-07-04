@@ -161,11 +161,17 @@ $("#imageChoosen").change(function (e) {
       })
       .done(function(data){
         $('.loading').hide();
-        for(var i = 0; i < data.length; i++) {
-          var obj = data[i];
-          var template = "<li><a><img class='img img-responsive' src=" + obj.thumbnail + "></a></li>";
-          jQuery("#thumbnail_gallery").append(template);                      
+        if(data.length >0){
+          for(var i = 0; i < data.length; i++) {
+            var obj = data[i];
+            var template = "<li><a><img class='img img-responsive' src=" + obj.thumbnail + "></a></li>";
+            jQuery("#thumbnail_gallery").append(template);                      
+          }
+        }else{
+          $('.thumbnails_sec').append("<p><span>No thumbnails added to show, please add thumbnail!</span></p>")
         }
+        
+
       })
       .fail(function() {
             alert('Please try again later');                    
