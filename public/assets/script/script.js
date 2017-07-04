@@ -157,12 +157,17 @@ $("#imageChoosen").change(function (e) {
   if($('body').hasClass('thumbnails')){
     var ajaxurl = "/api/thumbnails"; 
       jQuery.get( ajaxurl, function( data ) {
+         console.log('Loading..');
+      })
+      .done(function(data){
+        $('.loading').hide();
         for(var i = 0; i < data.length; i++) {
           var obj = data[i];
           var template = "<li><a><img class='img img-responsive' src=" + obj.thumbnail + "></a></li>";
           jQuery("#thumbnail_gallery").append(template);                      
         }
-      }).fail(function() {
+      })
+      .fail(function() {
             alert('Please try again later');                    
           });
       }
