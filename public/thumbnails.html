@@ -11,17 +11,17 @@
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>			
 </head>
-<body>
+<body class="thumbnails">
 <div class="container">
   <div class="row">
     <div class="col-md-12 main-header">
       <nav>
         <ul class="list-inline">
           <li><a href="/"> Home</a></li>        
-          <li><a href="thumbnails.html"  class="active"> Thumbnail</a></li>
+          <li><a href="/thumbnails"  class="active"> Thumbnails</a></li>
         </ul>
       </nav>
-        <h1 class="text-center">Image - nary</h1>
+        <h1 class="text-center">Imagenary</h1>
       </div>    
   </div>
 </div>
@@ -36,23 +36,7 @@
   </div>
 </div>
 
- 	
-  	<script type="text/javascript">
-        $(document).ready(function(){
-        var ajaxurl = "/api/thumbnails"; 
-          jQuery.get( ajaxurl, function( data ) {
 
-                for(var i = 0; i < data.length; i++) {
-                    var obj = data[i];
-                    var template = "<li><a><img class='img img-responsive' src=" + obj.thumbnail + "></a></li>";
-                    jQuery("#thumbnail_gallery").append(template);                      
-                }
-            }).fail(function() {
-                 alert('Please try again later');                    
-              });
-        });
-    </script>
-
-
+<script type="text/javascript" src="assets/script/script.js"></script>
 </body>
 </html>

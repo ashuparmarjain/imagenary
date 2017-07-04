@@ -148,8 +148,22 @@ $("#imageChoosen").change(function (e) {
     }).done(function(res){
     	 $('#uploaded_Modal').modal('show');
     });
-
-
-
-
 });
+
+
+ // load thumbnails created
+
+ $(document).ready(function(){
+  if($('body').hasClass('thumbnails')){
+    var ajaxurl = "/api/thumbnails"; 
+      jQuery.get( ajaxurl, function( data ) {
+        for(var i = 0; i < data.length; i++) {
+          var obj = data[i];
+          var template = "<li><a><img class='img img-responsive' src=" + obj.thumbnail + "></a></li>";
+          jQuery("#thumbnail_gallery").append(template);                      
+        }
+      }).fail(function() {
+            alert('Please try again later');                    
+          });
+      }
+ });
